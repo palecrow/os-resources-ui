@@ -24,9 +24,12 @@
 #    'neutron_lbaas_dashboard.dashboards.project.ngloadbalancersv2.panel'
 #    '.NGLoadBalancers')
 
+FEATURE = 'os_resources_ui'
+
 ADD_INSTALLED_APPS = ['os_resources_ui']
 
-ADD_ANGULAR_MODULES = ['horizon.app.resources.something']
+ADD_ANGULAR_MODULES = ['horizon.app.resources.something',
+                       'horizon.app.resources.os-glance-image']
 
 ADD_SCSS_FILES = []
 
