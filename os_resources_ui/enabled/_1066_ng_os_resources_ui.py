@@ -28,8 +28,8 @@ FEATURE = 'os_resources_ui'
 
 ADD_INSTALLED_APPS = ['os_resources_ui']
 
-ADD_ANGULAR_MODULES = ['horizon.app.resources.something',
-                       'horizon.app.resources.os-glance-image']
+ADD_ANGULAR_MODULES = ['horizon.app.resources',
+                       'horizon.app.core.instances']
 
 ADD_SCSS_FILES = []
 
