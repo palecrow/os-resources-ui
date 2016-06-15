@@ -69,7 +69,7 @@
       });
 
     function listFunction() {
-      return glance.getImages();
+      return glanceApi.getImages();
     }
   }
 
