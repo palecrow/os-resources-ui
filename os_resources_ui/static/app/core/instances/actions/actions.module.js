@@ -31,11 +31,15 @@
   run.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
     'horizon.framework.util.actions.redirect-action.service',
+    'horizon.app.core.instances.actions.simple-associate-ip',
     'horizon.app.core.instances.actions.launch-instance.service',
     'horizon.app.core.instances.actions.create-snapshot.service',
     'horizon.app.core.instances.actions.delete-instance.service',
+    'horizon.app.core.instances.actions.edit-instance',
+    'horizon.app.core.instances.actions.edit-instance-security-groups',
     'horizon.app.core.instances.actions.pause.service',
     'horizon.app.core.instances.actions.unpause.service',
+    'horizon.app.core.instances.actions.update-metadata',
     'horizon.app.core.instances.actions.suspend.service',
     'horizon.app.core.instances.actions.resume.service',
     'horizon.app.core.instances.actions.hard-reboot.service',
@@ -48,11 +52,15 @@
   function run(
     registry,
     redirectService,
+    simpleAssociateIp,
     launchInstanceService,
     createSnapshotService,
     deleteService,
+    editInstance,
+    editInstanceSecurityGroups,
     pauseService,
     unpauseService,
+    updateMetadata,
     suspendService,
     resumeService,
     hardRebootService,
@@ -81,6 +89,24 @@
       });
     instanceResourceType.itemActions
       .append({
+        id: 'simpleAssociateIp',
+        service: simpleAssociateIp,
+        template: {
+          text: gettext('Associate Floating IP')
+        }
+      }).append({
+        id: 'editInstance',
+        service: editInstance,
+        template: {
+          text: gettext('Edit Instance')
+        }
+      }).append({
+        id: 'editInstanceSecurityGroups',
+        service: editInstanceSecurityGroups,
+        template: {
+          text: gettext('Edit Security Groups')
+        }
+      }).append({
         id: 'pauseService',
         service: pauseService,
         template: {
@@ -92,6 +118,13 @@
         service: unpauseService,
         template: {
           text: gettext('Unpause')
+        }
+      })
+      .append({
+        id: 'updateMetadata',
+        service: updateMetadata,
+        template: {
+          text: gettext('Update Metadata')
         }
       })
       .append({
