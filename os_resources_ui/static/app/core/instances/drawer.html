@@ -1,0 +1,19 @@
+<div class="row" ng-controller="horizon.app.core.instances.DrawerController as ctrl">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt translate>IP Addresses</dt><dd>{$ ctrl.getAllAddresses(item.addresses) $}</dd>
+      <dt translate>Status</dt><dd>{$ item.status | decode:ctrl.statuses $}</dd>
+      <dt translate>Key Pair</dt><dd>{$ item.key_name $}</dd>
+      <dt translate>Image</dt><dd>{$ item.image_name | noValue $}</dd>
+      <dt translate>Flavor</dt><dd>{$ item.flavor_name | noValue $}</dd>
+    </dl>
+  </div>
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt translate>Availability Zone</dt><dd>{$ item['OS-EXT-AZ:availability_zone'] $}</dd>
+      <dt translate>Task</dt><dd>{$ item['OS-EXT-STS:task_state'] | noValue $}</dd>
+      <dt translate>Power State</dt><dd>{$ item['OS-EXT-STS:power_state'] | decode:ctrl.powerStates | title $}</dd>
+      <dt translate>Time Since Created</dt><dd>--</dd>
+    </dl>
+  </div>
+</div>
