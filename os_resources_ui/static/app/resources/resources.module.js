@@ -50,8 +50,6 @@
     // As a model, the Images registration happens in the images module.
     registry.getResourceType('OS::Glance::Metadef')
       .setNames(gettext('Metadata Definition'), gettext('Metadata Definitions'));
-    registry.getResourceType('OS::Nova::Server')
-      .setNames(gettext('Instance'), gettext('Instances'));
     registry.getResourceType('OS::Nova::Flavor')
       .setNames(gettext('Flavor'), gettext('Flavors'));
     registry.getResourceType('OS::Nova::Hypervisor')
