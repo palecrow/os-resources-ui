@@ -69,7 +69,11 @@
       });
 
     function listFunction() {
+<<<<<<< Updated upstream
       return glance.getImages();
+=======
+      return glanceApi.getImages();
+>>>>>>> Stashed changes
     }
   }
 
