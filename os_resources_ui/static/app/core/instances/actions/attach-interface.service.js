@@ -18,7 +18,7 @@
 
   angular
     .module('horizon.app.core.instances.actions')
-    .factory('horizon.app.core.instances.actions.simple-associate-ip', service);
+    .factory('horizon.app.core.instances.actions.attach-interface', service);
 
   service.$inject = [
     'horizon.app.resources.os-horizon-django.actions.service'
@@ -26,7 +26,7 @@
 
   function service(djangoActionService) {
 
-    var djangoAction = djangoActionService.getAction('SimpleAssociateIp');
+    var djangoAction = djangoActionService.getAction('AttachInterface');
 
     var service = {
       initScope: initScope,
