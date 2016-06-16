@@ -31,13 +31,17 @@
   run.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
     'horizon.framework.util.actions.redirect-action.service',
-    'horizon.app.core.instances.actions.simple-associate-ip',
+    'horizon.app.core.instances.actions.associate-ip',
+    'horizon.app.core.instances.actions.attach-interface',
+    'horizon.app.core.instances.actions.detach-interface',
     'horizon.app.core.instances.actions.launch-instance.service',
     'horizon.app.core.instances.actions.create-snapshot.service',
     'horizon.app.core.instances.actions.delete-instance.service',
     'horizon.app.core.instances.actions.edit-instance',
     'horizon.app.core.instances.actions.edit-instance-security-groups',
     'horizon.app.core.instances.actions.pause.service',
+    'horizon.app.core.instances.actions.rebuild-instance',
+    'horizon.app.core.instances.actions.resize-instance',
     'horizon.app.core.instances.actions.unpause.service',
     'horizon.app.core.instances.actions.update-metadata',
     'horizon.app.core.instances.actions.suspend.service',
@@ -52,13 +56,17 @@
   function run(
     registry,
     redirectService,
-    simpleAssociateIp,
+    associateIp,
+    attachInterface,
+    detachInterface,
     launchInstanceService,
     createSnapshotService,
     deleteService,
     editInstance,
     editInstanceSecurityGroups,
     pauseService,
+    rebuildInstance,
+    resizeInstance,
     unpauseService,
     updateMetadata,
     suspendService,
@@ -89,10 +97,22 @@
       });
     instanceResourceType.itemActions
       .append({
-        id: 'simpleAssociateIp',
-        service: simpleAssociateIp,
+        id: 'associateIp',
+        service: associateIp,
         template: {
           text: gettext('Associate Floating IP')
+        }
+      }).append({
+        id: 'attachInterface',
+        service: attachInterface,
+        template: {
+          text: gettext('Attach Interface')
+        }
+      }).append({
+        id: 'detachInterface',
+        service: detachInterface,
+        template: {
+          text: gettext('Detach Interface')
         }
       }).append({
         id: 'editInstance',
@@ -114,10 +134,24 @@
         }
       })
       .append({
+        id: 'rebuildInstance',
+        service: rebuildInstance,
+        template: {
+          text: gettext('Rebuild Instance')
+        }
+      })
+      .append({
         id: 'unpauseService',
         service: unpauseService,
         template: {
           text: gettext('Unpause')
+        }
+      })
+      .append({
+        id: 'resizeInstance',
+        service: resizeInstance,
+        template: {
+          text: gettext('Resize Instance')
         }
       })
       .append({
