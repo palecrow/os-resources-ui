@@ -10,6 +10,6 @@ Go to os-resources-ui and run:
 
 Go to Horizon's root dir
 
-cp ../os-resources-ui/os\_resources\_ui/\_1066*.py openstack\_dashboard/local/enabled
+cp ../os-resources-ui/os\_resources\_ui/enabled/\_1066*.py openstack\_dashboard/local/enabled
 
 ./tools/with\_venv.sh pip install -e ../os-resources-ui/

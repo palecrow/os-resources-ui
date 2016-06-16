@@ -29,6 +29,7 @@
    */
   angular
     .module('horizon.app.resources', [
+      'horizon.app.resources.os-glance-image',
       'horizon.app.resources.os-horizon-django',
       'horizon.app.resources.os-neutron-nets',
       'horizon.app.resources.os-neutron-ports',
