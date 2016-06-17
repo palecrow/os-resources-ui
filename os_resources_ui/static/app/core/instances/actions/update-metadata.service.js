@@ -21,7 +21,7 @@
     .factory('horizon.app.core.instances.actions.update-metadata', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.actions.service'
+    'horizon.app.resources.os-horizon-django.django-actions'
   ];
 
   function service(djangoActionService) {

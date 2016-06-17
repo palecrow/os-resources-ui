@@ -21,12 +21,13 @@
     .factory('horizon.app.core.instances.actions.edit-instance', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.actions.service'
+    'horizon.app.resources.os-horizon-django.django-actions',
+    'horizon.app.core.instances.resourceType'
   ];
 
-  function service(djangoActionService) {
+  function service(djangoActionService, resourceTypeName) {
 
-    var djangoAction = djangoActionService.getAction('EditInstance');
+    var djangoAction = djangoActionService.getAction('EditInstance', resourceTypeName, 'id');
 
     var service = {
       initScope: initScope,

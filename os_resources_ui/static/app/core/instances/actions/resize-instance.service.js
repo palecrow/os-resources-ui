@@ -21,7 +21,7 @@
     .factory('horizon.app.core.instances.actions.resize-instance', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.actions.service'
+    'horizon.app.resources.os-horizon-django.django-actions'
   ];
 
   function service(djangoActionService) {
