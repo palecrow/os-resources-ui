@@ -21,9 +21,12 @@
     .factory('horizon.app.resources.os-horizon-django.django-actions', djangoActions);
 
   djangoActions.$inject = [
+    '$location',
     '$http',
     '$modal',
+    '$rootScope',
     '$q',
+    '$timeout',
     'horizon.framework.widgets.modal-wait-spinner.service',
     'horizon.app.core.openstack-service-api.django-actions',
     'horizon.framework.util.actions.action-result.service'
@@ -37,9 +40,12 @@
    * Brings up the Create Volume modal.
    */
   function djangoActions(
+    $location,
     $http,
     $modal,
+    $rootScope,
     $q,
+    $timeout,
     waitSpinner,
     djangoActions,
     actionResultService)
@@ -54,7 +60,9 @@
     /// PRIVATE
 
     function getAction(name, type, idAttributeName) {
-      var actionClassName, modal, action, method, performData, performDeferred;
+      var actionClassName, modal, action;
+      var method, performData, performDeferred;
+      var deregisterOnLocationChange;
       
       actionClassName = name;
       var service = {
@@ -75,6 +83,9 @@
         return $q.when(true);
       }
 
+      // TODO (tyr): block searchlight-ui polling while waiting for action completion
+      // otherwise SL might get the update before we return from the action, or perhaps
+      // we need to cache the id BEFORE attempting the action?
       function perform(data) {
         performData = data;
         performDeferred = $q.defer();
@@ -89,72 +100,33 @@
           }, function errorCallback(response) {
             console.log(response);
             waitSpinner.hideModalSpinner();
-            return response;
+            return performDeferred.reject(response);
           })
         });
         return performDeferred.promise;
       }
 
-      function displayAction(html, isRedisplay) {
+      function displayAction(html) {
+        deregisterOnLocationChange = $rootScope.$on('$locationChangeStart', onLocationChange);
         html = $.parseHTML($.trim(html));
-        var formOnly = $(html[0]).find("form");
-        if (!isRedisplay) {
-          // Django is returning "horizon:admin:networks:addport" in the form response
-          // if the form doesn't validation. Therefore, if we are redisplaying the form
-          // don't use the action and method from this response.
-          method = $(formOnly).attr('method');
-          action = $(formOnly).attr('action');
-        }
-        // use .one to avoid multiple submit handlers if form is redisplayed
-        $("body").one('submit', modal, onFormSubmit);
-        formOnly = formOnly[0].outerHTML;
-        modal = $modal.open(
-          {
-            template: formOnly
-          }
-        )
-        return modal.result;
+        $timeout(function() {
+          // Must use $timeout to call modals.success OFF the angular digest cycle
+          horizon.modals.success(html);
+        }, 0, false);
       }
 
-      function onFormSubmit(event) {
+      function onLocationChange(event, newUrl) {
+        deregisterOnLocationChange();
+        console.log("onLocationChange");
+        console.log(event);
+        console.log(newUrl);
         event.preventDefault();
-        waitSpinner.showModalSpinner(gettext("Submitting"));
-        var form = $(".modal-dialog").find("form");
-        var formData = new FormData(form[0]);
-
-        $http({
-          headers: {'Content-Type': undefined},
-          transformRequest: function (data) {
-            return data;
-          },
-          method: method,
-          url: action,
-          data: formData
-        }).then(onSubmitResponse, onSubmitResponseError);
-
-        return false;
-      }
-
-      function onSubmitResponse(response) {
-        waitSpinner.hideModalSpinner();
-        console.log(response);
-        if (response.status === 200 && response.data) {
-          // Redisplay the form
-          modal.dismiss();
-          // Notice we do NOT resolve the promise because we are going
-          // to re-display the action modal, likely due to validation
-          // errors. This is the same reason we can't simply return the
-          // modal.result promise earlier.
-          displayAction(response.data, true);
-        } else if (response.status === 302) {
-          // Redirect...success?
-          modal.close();
-          performDeferred.resolve(onActionSuccess());
-        } else {
-          console.log("unexpected action response");
-          modal.close();
-          performDeferred.resolve(onActionSuccess());
+        if ( horizon.modals.spinner ) {
+          // if horizon.modals.js doesn't redirect after an action, we must hide the spinner
+          // ourselves
+          horizon.modals.spinner.modal('hide');
         }
+        performDeferred.resolve(onActionSuccess());
       }
 
       function onActionSuccess() {
@@ -162,10 +134,6 @@
         var id = performData[idAttributeName];
         actionResult.updated(type, id);
         return actionResult.result;
-      }
-
-      function onSubmitResponseError(error) {
-        console.log("submit response error: " + error);
       }
 
       function loadAction(actionUrl) {
