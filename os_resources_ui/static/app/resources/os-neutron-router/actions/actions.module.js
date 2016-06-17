@@ -32,7 +32,7 @@
 
   registerActions.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
-    'horizon.app.resources.os-horizon-django.actions.service',
+    'horizon.app.resources.os-horizon-django.django-actions',
     'horizon.app.resources.os-neutron-router.resourceType'
   ];
   

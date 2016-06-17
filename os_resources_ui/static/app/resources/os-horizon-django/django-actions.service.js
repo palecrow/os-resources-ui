@@ -18,13 +18,15 @@
 
   angular
     .module('horizon.app.resources.os-horizon-django')
-    .factory('horizon.app.resources.os-horizon-django.actions.service', djangoActionsService);
+    .factory('horizon.app.resources.os-horizon-django.django-actions', djangoActions);
 
-  djangoActionsService.$inject = [
+  djangoActions.$inject = [
     '$http',
     '$modal',
     '$q',
-    'horizon.app.core.openstack-service-api.django-actions'
+    'horizon.framework.widgets.modal-wait-spinner.service',
+    'horizon.app.core.openstack-service-api.django-actions',
+    'horizon.framework.util.actions.action-result.service'
   ];
 
   /*
@@ -34,10 +36,14 @@
    * @Description
    * Brings up the Create Volume modal.
    */
-  function djangoActionsService($http,
-                                $modal,
-                                $q,
-                                djangoActions) {
+  function djangoActions(
+    $http,
+    $modal,
+    $q,
+    waitSpinner,
+    djangoActions,
+    actionResultService)
+  {
 
     var service = {
       getAction: getAction
@@ -47,8 +53,8 @@
     
     /// PRIVATE
 
-    function getAction(name) {
-      var actionClassName, modal, action, method;
+    function getAction(name, type, idAttributeName) {
+      var actionClassName, modal, action, method, performData, performDeferred;
       
       actionClassName = name;
       var service = {
@@ -70,16 +76,23 @@
       }
 
       function perform(data) {
+        performData = data;
+        performDeferred = $q.defer();
         console.log('DJANGO ACTION: perform: ' + actionClassName);
+        waitSpinner.showModalSpinner(gettext("Loading"));
         djangoActions.perform(actionClassName, data).then(function (result) {
           console.log(result);
-          loadAction(result.data).then(function (result) {
+          return loadAction(result.data).then(function (result) {
             console.log(result.data);
-            displayAction(result.data);
+            waitSpinner.hideModalSpinner();
+            return displayAction(result.data);
           }, function errorCallback(response) {
             console.log(response);
+            waitSpinner.hideModalSpinner();
+            return response;
           })
-        })
+        });
+        return performDeferred.promise;
       }
 
       function displayAction(html, isRedisplay) {
@@ -100,10 +113,12 @@
             template: formOnly
           }
         )
+        return modal.result;
       }
 
       function onFormSubmit(event) {
         event.preventDefault();
+        waitSpinner.showModalSpinner(gettext("Submitting"));
         var form = $(".modal-dialog").find("form");
         var formData = new FormData(form[0]);
 
@@ -121,17 +136,32 @@
       }
 
       function onSubmitResponse(response) {
-        modal.close();
+        waitSpinner.hideModalSpinner();
         console.log(response);
         if (response.status === 200 && response.data) {
           // Redisplay the form
+          modal.dismiss();
+          // Notice we do NOT resolve the promise because we are going
+          // to re-display the action modal, likely due to validation
+          // errors. This is the same reason we can't simply return the
+          // modal.result promise earlier.
           displayAction(response.data, true);
         } else if (response.status === 302) {
           // Redirect...success?
-        } else {
-          console.log("unexpection action response");
           modal.close();
+          performDeferred.resolve(onActionSuccess());
+        } else {
+          console.log("unexpected action response");
+          modal.close();
+          performDeferred.resolve(onActionSuccess());
         }
+      }
+
+      function onActionSuccess() {
+        var actionResult = actionResultService.getActionResult();
+        var id = performData[idAttributeName];
+        actionResult.updated(type, id);
+        return actionResult.result;
       }
 
       function onSubmitResponseError(error) {

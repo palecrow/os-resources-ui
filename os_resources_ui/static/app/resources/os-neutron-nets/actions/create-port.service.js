@@ -21,7 +21,7 @@
     .factory('horizon.app.resources.os-neutron-nets.actions.createPort', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.actions.service'
+    'horizon.app.resources.os-horizon-django.django-actions'
   ];
 
   function service(djangoActionService) {
