@@ -32,20 +32,20 @@
 
   registerActions.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
-    'horizon.app.resources.os-horizon-django.django-actions',
+    'horizon.app.resources.os-horizon.server-side-action',
     'horizon.app.resources.os-swift-container.resourceType'
   ];
   
   function registerActions(
     registry,
-    djangoActionService,
+    serverSideActionService,
     resourceTypeName) {
     var resourceType = registry.getResourceType(resourceTypeName);
-    var djangoAction = djangoActionService.getAction('CreateContainer');
+    var serverSideAction = serverSideActionService.getAction('CreateContainer');
     resourceType.globalActions
       .append({
         id: 'createContainer',
-        service: djangoAction,
+        service: serverSideAction,
         template: {
           text: gettext('Create Container')
         }

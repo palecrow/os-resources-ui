@@ -27,6 +27,6 @@
    * This module provides utility functions to access Horizon Django functionality
    * from client side
    */
-  angular.module('horizon.app.resources.os-horizon-django', []);
+  angular.module('horizon.app.resources.os-horizon', []);
 
 })();
