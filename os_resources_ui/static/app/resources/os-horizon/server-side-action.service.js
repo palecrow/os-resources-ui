@@ -39,7 +39,7 @@
     $q,
     $timeout,
     waitSpinner,
-    serverSideActions,
+    serverSideActionApi,
     actionResultService)
   {
     var actionTypes = {
@@ -111,7 +111,7 @@
         //
         // Effectively, we use the "normal" Horizon action modal system...but need to customze the horizon.modal.js
         // .ajax-modal click handler.
-        serverSideActions.perform(actionName, data).then(function (result) {
+        serverSideActionApi.perform(actionName, data).then(function (result) {
           return loadAction(result.data).then(function (result) {
             waitSpinner.hideModalSpinner();
             return displayAction(result.data);
@@ -179,7 +179,7 @@
         // Unregister *all* listeners when we handle *any* event
         removeModalEventListeners();
 
-        if ( event.type === '$locationChangeStart') {
+        if ( event.name === '$locationChangeStart') {
           onLocationChange(event);
         } else {
           onModalCanceled(event);
