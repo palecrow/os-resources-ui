@@ -21,12 +21,17 @@
     .factory('horizon.app.core.instances.actions.resize-instance', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.django-actions'
+    'horizon.app.resources.os-horizon.server-side-action',
+    'horizon.app.core.instances.resourceType'
   ];
 
-  function service(djangoActionService) {
+  function service(serverSideActionService, resourceTypeName) {
 
-    var djangoAction = djangoActionService.getAction('ResizeInstance');
+    var serverSideAction = serverSideActionService.getAction(
+      'ResizeInstance',
+      resourceTypeName,
+      serverSideActionService.actionTypes.UPDATE,
+      'id');
 
     var service = {
       initScope: initScope,
@@ -37,15 +42,15 @@
     return service;
 
     function initScope(newScope) {
-      return djangoAction.initScope(newScope);
+      return serverSideAction.initScope(newScope);
     }
 
     function allowed(data) {
-      return djangoAction.allowed(data);
+      return serverSideAction.allowed(data);
     }
 
     function perform(data) {
-      return djangoAction.perform(data);
+      return serverSideAction.perform(data);
     }
   }
 })();
