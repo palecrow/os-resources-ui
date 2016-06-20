@@ -21,12 +21,12 @@
     .factory('horizon.app.core.instances.actions.update-metadata', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.django-actions'
+    'horizon.app.resources.os-horizon.server-side-action'
   ];
 
-  function service(djangoActionService) {
+  function service(serverSideActionService) {
 
-    var djangoAction = djangoActionService.getAction('UpdateMetadata');
+    var serverSideAction = serverSideActionService.getAction('UpdateMetadata');
 
     var service = {
       initScope: initScope,
@@ -37,11 +37,11 @@
     return service;
 
     function initScope(newScope) {
-      return djangoAction.initScope(newScope);
+      return serverSideAction.initScope(newScope);
     }
 
     function allowed(data) {
-      return djangoAction.allowed(data);
+      return serverSideAction.allowed(data);
     }
 
     function perform(data) {

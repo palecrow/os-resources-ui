@@ -32,13 +32,13 @@
 
   registerActions.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
-    'horizon.app.resources.os-horizon-django.django-actions',
+    'horizon.app.resources.os-horizon.server-side-action',
     'horizon.app.resources.os-neutron-subnets.resourceType'
   ];
   
   function registerActions(
     registry,
-    djangoActionService,
+    serverSideActionService,
     resourceTypeName) {
       // None yet
   }

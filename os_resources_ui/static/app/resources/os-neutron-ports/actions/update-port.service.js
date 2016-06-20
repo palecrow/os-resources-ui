@@ -21,12 +21,17 @@
     .factory('horizon.app.resources.os-neutron-ports.actions.updatePort', service);
 
   service.$inject = [
-    'horizon.app.resources.os-horizon-django.django-actions'
+    'horizon.app.resources.os-horizon.server-side-action',
+    'horizon.app.resources.os-neutron-ports.resourceType'
   ];
 
-  function service(djangoActionService) {
+  function service(serverSideActionService, resourceTypeName) {
 
-    var djangoAction = djangoActionService.getAction('UpdatePort');
+    var serverSideAction = serverSideActionService.getAction(
+      'UpdatePort',
+      resourceTypeName,
+      serverSideActionService.actionTypes.UPDATE,
+      'id');
 
     var service = {
       initScope: initScope,
@@ -37,15 +42,15 @@
     return service;
 
     function initScope(newScope) {
-      return djangoAction.initScope(newScope);
+      return serverSideAction.initScope(newScope);
     }
 
     function allowed(data) {
-      return djangoAction.allowed(data);
+      return serverSideAction.allowed(data);
     }
 
     function perform(data) {
-      return djangoAction.perform(data);
+      return serverSideAction.perform(data);
     }
   }
 })();
