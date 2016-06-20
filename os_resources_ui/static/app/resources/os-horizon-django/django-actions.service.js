@@ -21,6 +21,7 @@
     .factory('horizon.app.resources.os-horizon-django.django-actions', djangoActions);
 
   djangoActions.$inject = [
+    '$document',
     '$location',
     '$http',
     '$modal',
@@ -40,6 +41,7 @@
    * Brings up the Create Volume modal.
    */
   function djangoActions(
+    $document,
     $location,
     $http,
     $modal,
@@ -62,7 +64,7 @@
     function getAction(name, type, idAttributeName) {
       var actionClassName, modal, action;
       var method, performData, performDeferred;
-      var deregisterOnLocationChange;
+      var deregisterOnLocationChange = angular.noop;
       
       actionClassName = name;
       var service = {
@@ -103,11 +105,15 @@
             return performDeferred.reject(response);
           })
         });
+        // TODO (tyr) Must reject this promise on modal close so that action-list will re-enable
+        // clicking on other actions
         return performDeferred.promise;
       }
 
       function displayAction(html) {
-        deregisterOnLocationChange = $rootScope.$on('$locationChangeStart', onLocationChange);
+
+        addModalEventListeners();
+
         html = $.parseHTML($.trim(html));
         $timeout(function() {
           // Must use $timeout to call modals.success OFF the angular digest cycle
@@ -115,23 +121,56 @@
         }, 0, false);
       }
 
-      function onLocationChange(event, newUrl) {
+      function addModalEventListeners() {
+        // Listen for location change events
+        deregisterOnLocationChange = $rootScope.$on('$locationChangeStart', modalEventHandler);
+        // Bind "cancel" button handler.
+        $document.one('click', '.modal .cancel', modalEventHandler);
+        // Bind "close" button handler
+        $document.one('click', '.modal .close', modalEventHandler);
+      }
+
+      function removeModalEventListeners() {
         deregisterOnLocationChange();
-        console.log("onLocationChange");
-        console.log(event);
-        console.log(newUrl);
+        $document.off('click', '.modal .cancel', modalEventHandler);
+        $document.off('click', '.modal .close', modalEventHandler);
+      }
+
+      function modalEventHandler(event) {
+        // Unregister *all* listeners when we handle *any* event
+        removeModalEventListeners();
+
+        if ( event.type === '$locationChangeStart') {
+          onLocationChange(event);
+        } else {
+          onModalCanceled(event);
+        }
+      }
+
+      function onModalCanceled(event) {
+        performDeferred.reject(gettext("Canceled"));
+      }
+
+      function onLocationChange(event) {
+        // prevent the redirect on modal success
         event.preventDefault();
+
+        // TOOD (tyr) Is this necessary
         if ( horizon.modals.spinner ) {
           // if horizon.modals.js doesn't redirect after an action, we must hide the spinner
           // ourselves
           horizon.modals.spinner.modal('hide');
         }
+
         performDeferred.resolve(onActionSuccess());
       }
 
       function onActionSuccess() {
         var actionResult = actionResultService.getActionResult();
+        // Get the id of the item being operated upon
         var id = performData[idAttributeName];
+
+        // TODO (tyr) Give action a way to indicate if it updates, creates or deletes an item
         actionResult.updated(type, id);
         return actionResult.result;
       }
