@@ -29,7 +29,8 @@
   function run(registry, glanceApi, basePath, resourceType) {
     registry.getResourceType(resourceType)
       .setNames(gettext('Image'), gettext('Images'))
-      .setSummaryTemplateUrl(basePath + 'details/drawer.html')
+      // I took OUT the registration due to the Images patch almost merging,
+      // and in the end causing too much difficulty to port in.
       .setProperty('type', {
         label: gettext('Type')
       })
