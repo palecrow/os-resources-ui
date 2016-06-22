@@ -1,0 +1,33 @@
+<div class="row">
+  <dl class="col-md-2">
+    <dt translate>Consistency Group ID</dt>
+    <dd>{$ item.consistencygroup_id | noValue $}</dd>
+  </dl>
+  <dl class="col-md-2">
+    <dt translate>Source Volume ID</dt>
+    <dd>{$ item.source_volid | noValue $}</dd>
+  </dl>
+  <dl class="col-md-2">
+    <dt translate>Snapshot ID</dt>
+    <dd>{$ item.snapshot_id | noValue $}</dd>
+  </dl>
+  <dl class="col-md-2">
+    <dt translate>Image Ref</dt>
+    <dd>{$ item.imageRef | noValue $}</dd>
+  </dl>
+</div>
+
+<div class="row">
+  <dl class="col-md-2">
+    <dt translate>Transfer</dt>
+    <dd>{$ itemm.transfer | noValue $}</dd>
+  </dl>
+  <dl class="col-md-2">
+    <dt translate>Volume Image Metadata</dt>
+    <dd>{$ itemm.volume_image_metadata | noValue $}</dd>
+  </dl>
+  <dl class="col-md-2">
+    <dt translate>Created At</dt>
+    <dd>{$ item.created_at | toIsoDate $}</dd>
+  </dl>
+</div>

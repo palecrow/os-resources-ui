@@ -29,6 +29,7 @@
    */
   angular
     .module('horizon.app.resources', [
+      'horizon.app.resources.os-cinder-volumes',
       'horizon.app.resources.os-glance-image',
       'horizon.app.resources.os-horizon',
       'horizon.app.resources.os-neutron-floatingip',
