@@ -29,7 +29,93 @@
   angular.module('horizon.app.resources.os-neutron-nets', [
     'horizon.app.resources.os-neutron-nets.actions'
   ])
-  .constant('horizon.app.resources.os-neutron-nets.resourceType', 'OS::Neutron::Net');
+  .constant('horizon.app.resources.os-neutron-nets.resourceType', 'OS::Neutron::Net')
+    .run(run)
+    .config(config);
+
+  run.$inject = [
+    'horizon.framework.conf.resource-type-registry.service',
+    'horizon.app.core.openstack-service-api.neutron',
+    'horizon.app.resources.os-neutron-nets.basePath',
+    'horizon.app.resources.os-neutron-nets.resourceType'
+  ];
+
+  function run(registry, neutron, basePath, networkResourceType) {
+    registry.getResourceType(networkResourceType)
+      .setNames(gettext('Network'), gettext('Networks'))
+      .setSummaryTemplateUrl(basePath + '/drawer.html')
+      .setProperty('id', {
+        label: gettext('ID')
+      })
+      .setProperty('name', {
+        label: gettext('Name')
+      })
+      .setProperty('subnets_associated', {
+        label: gettext('Subnets Associated')
+      })
+      .setProperty('shared', {
+        label: gettext('Shared')
+      })
+      .setProperty('external', {
+        label: gettext('External')
+      })
+      .setProperty('status', {
+        label: gettext('Status')
+      })
+      .setProperty('admin_state', {
+        label: gettext('Admin State')
+      })
+      .setListFunction(listFunction)
+      .tableColumns
+      .append({
+        id: 'name',
+        priority: 1,
+        sortDefault: true,
+        template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::Net/\' + item.id $}">' +
+          '{$ item.name $}</a>'
+      })
+      .append({
+        id: 'subnets_associated',
+        priority: 1
+      })
+      .append({
+        id: 'shared',
+        priority: 1
+      })
+      .append({
+        id: 'external',
+        priority: 2
+      })
+      .append({
+        id: 'status',
+        priority: 2
+      })
+      .append({
+        id: 'admin_state',
+        priority: 2
+      });
+
+    function listFunction() {
+      return neutron.getNetworks();
+    }
+  }
+
+  config.$inject = [
+    '$provide',
+    '$windowProvider'
+  ];
+
+  /**
+   * @name config
+   * @param {Object} $provide
+   * @param {Object} $windowProvider
+   * @description Routes used by this module.
+   * @returns {undefined} Returns nothing
+   */
+  function config($provide, $windowProvider) {
+    var path = $windowProvider.$get().STATIC_URL + 'app/resources/os-neutron-nets';
+    $provide.constant('horizon.app.resources.os-neutron-nets.basePath', path);
+  }
 
 
 })();
