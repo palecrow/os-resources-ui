@@ -43,7 +43,7 @@
     releaseIps,
     resourceTypeName) {
     var resourceType = registry.getResourceType(resourceTypeName);
-
+/*
     resourceType.globalActions
       .append({
         id: 'allocateIp',
@@ -61,5 +61,6 @@
           text: gettext('Release Floating IPs')
         }
       });
+*/
   }
 })();

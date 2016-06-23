@@ -26,14 +26,14 @@
    *
    * This module provides actions for Neutron Ports
    */
-  angular.module('horizon.app.resources.os-neutron-router.actions', [
+  angular.module('horizon.app.resources.os-neutron-routers.actions', [
   ])
     .run(registerActions);
 
   registerActions.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
     'horizon.app.resources.os-horizon.server-side-action',
-    'horizon.app.resources.os-neutron-router.resourceType'
+    'horizon.app.resources.os-neutron-routers.resourceType'
   ];
   
   function registerActions(
