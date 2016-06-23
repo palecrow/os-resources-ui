@@ -51,16 +51,24 @@
         label: gettext('Name')
       })
       .setProperty('description', {
-        label: gettext('Description')
+        label: gettext('Description'),
+        filters: ['noValue']
       })
       .setProperty('size', {
-        label: gettext('Size')
+        label: gettext('Size'),
+        filters: ['gb']//TODO: Use GiB
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        filters: ['title']
+      })
+      .setProperty('volume_id', {
+        label: gettext('Volume ID'),
+        filters: ['noValue']
       })
       .setProperty('volume_name', {
-        label: gettext('Volume Name')
+        label: gettext('Volume Name'),
+        filters: ['noValue']
       })
       .setProperty('created_at', {
         label: gettext('Created At')
@@ -76,13 +84,11 @@
       })
       .append({
         id: 'description',
-        priority: 1,
-        filters: ['noValue']
+        priority: 1
       })
       .append({
         id: 'size',
-        priority: 1,
-        filters: ['gb']//TODO: Use GiB
+        priority: 1
       })
       .append({
         id: 'status',
@@ -90,8 +96,7 @@
       })
       .append({
         id: 'volume_name',
-        priority: 2,
-        filters: ['noValue']
+        priority: 2
       });
 
     function listFunction() {

@@ -51,10 +51,12 @@
         label: gettext('Availability Zone')
       })
       .setProperty('bootable', {
-        label: gettext('Bootable')
+        label: gettext('Bootable'),
+        filters: ['yesno']
       })
       .setProperty('consistencygroup_id', {
-        label: gettext('Consistency Group ID')
+        label: gettext('Consistency Group ID'),
+        filters: ['noValue']
       })
       .setProperty('created_at', {
         label: gettext('Created At')
@@ -63,31 +65,39 @@
         label: gettext('Description')
       })
       .setProperty('encrypted', {
-        label: gettext('Encrypted')
+        label: gettext('Encrypted'),
+        filters: ['yesno']
       })
       .setProperty('id', {
         label: gettext('ID')
       })
       .setProperty('imageRef', {
-        label: gettext('Image Reference')
+        label: gettext('Image Reference'),
+        filters: ['noValue']
       })
       .setProperty('name', {
-        label: gettext('Name')
+        label: gettext('Name'),
+        filters: ['noValue']
       })
       .setProperty('size', {
-        label: gettext('Size')
+        label: gettext('Size'),
+        filters: ['gb']
       })
       .setProperty('snapshot_id', {
-        label: gettext('Snapshot ID')
+        label: gettext('Snapshot ID'),
+        filters: ['noValue']
       })
       .setProperty('source_volid', {
-        label: gettext('Source Volume ID')
+        label: gettext('Source Volume ID'),
+        filters: ['noValue']
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        filters: ['title']
       })
       .setProperty('transfer', {
-        label: gettext('Transfer')
+        label: gettext('Transfer'),
+        filters: ['noValue']
       })
       .setProperty('volume_image_metadata', {
         label: gettext('Volume Image Metadata')
@@ -110,8 +120,7 @@
       })
       .append({
         id: 'size',
-        priority: 1,
-        filters: ['gb']
+        priority: 1
       })
       .append({
         id: 'status',
@@ -123,8 +132,7 @@
       })
       .append({
         id: 'attachments',
-        priority: 2,
-        filters: ['noValue']
+        priority: 2
       })
       .append({
         id: 'availability_zone',
@@ -133,14 +141,10 @@
       .append({
         id: 'bootable',
         priority: 2
-        // Remove yesno filter until fixed this bug
-        // https://bugs.launchpad.net/cinder/+bug/1589865
-        // filters: ['yesno']
       })
       .append({
         id: 'encrypted',
-        priority: 2,
-        filters: ['yesno']
+        priority: 2
       });
 
     function listFunction() {

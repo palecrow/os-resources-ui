@@ -1,33 +1,28 @@
 <div class="row">
-  <dl class="col-md-2">
-    <dt translate>Consistency Group ID</dt>
-    <dd>{$ item.consistencygroup_id | noValue $}</dd>
+  <dl class="col-md-6">
+    <hz-property
+      prop-name="consistencygroup_id" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="source_volid" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="snapshot_id" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="imageRef" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
   </dl>
-  <dl class="col-md-2">
-    <dt translate>Source Volume ID</dt>
-    <dd>{$ item.source_volid | noValue $}</dd>
-  </dl>
-  <dl class="col-md-2">
-    <dt translate>Snapshot ID</dt>
-    <dd>{$ item.snapshot_id | noValue $}</dd>
-  </dl>
-  <dl class="col-md-2">
-    <dt translate>Image Ref</dt>
-    <dd>{$ item.imageRef | noValue $}</dd>
-  </dl>
-</div>
 
-<div class="row">
-  <dl class="col-md-2">
-    <dt translate>Transfer</dt>
-    <dd>{$ itemm.transfer | noValue $}</dd>
-  </dl>
-  <dl class="col-md-2">
-    <dt translate>Volume Image Metadata</dt>
-    <dd>{$ itemm.volume_image_metadata | noValue $}</dd>
-  </dl>
-  <dl class="col-md-2">
-    <dt translate>Created At</dt>
-    <dd>{$ item.created_at | toIsoDate $}</dd>
+  <dl class="col-md-6">
+    <hz-property
+      prop-name="transfer" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="volume_image_metadata" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="created_at" resource-type-name="OS::Cinder::Volume" item="item"
+    ></hz-property>
   </dl>
 </div>

@@ -1,22 +1,29 @@
 <div class="row">
   <dl class="col-md-4">
-    <dt translate>Name</dt>
-    <dd>{$ item.name | noValue $}</dd>
-    <dt translate>ID</dt>
-    <dd>{$ item.id $}</dd>
-    <dt translate>Description</dt>
-    <dd>{$ item.description | noValue $}</dd>
+    <hz-property
+      prop-name="id" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="name" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="description" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Size</dt>
-    <dd>{$ item.size | gb $}</dd>
-    <dt translate>Status</dt>
-    <dd>{$ item.status $}</dd>
+    <hz-property
+      prop-name="status" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="size" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Volume ID</dt>
-    <dd>{$ item.volume_id | noValue $}</dd>
-    <dt translate>Volume Name</dt>
-    <dd>{$ item.volume_name | noValue $}</dd>
+    <hz-property
+      prop-name="volume_id" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="volume_name" resource-type-name="OS::Cinder::Snapshot" item="item"
+    ></hz-property>
   </dl>
 </div>
