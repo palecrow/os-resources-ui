@@ -1,19 +1,32 @@
 <div class="row" ng-controller="horizon.app.core.instances.DrawerController as ctrl">
   <div class="col-md-6">
-    <dl class="dl-horizontal">
+    <dl>
       <dt translate>IP Addresses</dt><dd>{$ ctrl.getAllAddresses(item.addresses) $}</dd>
-      <dt translate>Status</dt><dd>{$ item.status | decode:ctrl.statuses $}</dd>
-      <dt translate>Key Pair</dt><dd>{$ item.key_name $}</dd>
-      <dt translate>Image</dt><dd>{$ item.image_name | noValue $}</dd>
-      <dt translate>Flavor</dt><dd>{$ item.flavor_name | noValue $}</dd>
+      <hz-property
+        prop-name="status" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
+      <hz-property
+        prop-name="key_name" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
+      <hz-property
+        prop-name="image_name" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
+      <hz-property
+        prop-name="flavor_name" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
     </dl>
   </div>
   <div class="col-md-6">
-    <dl class="dl-horizontal">
-      <dt translate>Availability Zone</dt><dd>{$ item['OS-EXT-AZ:availability_zone'] $}</dd>
-      <dt translate>Task</dt><dd>{$ item['OS-EXT-STS:task_state'] | noValue $}</dd>
-      <dt translate>Power State</dt><dd>{$ item['OS-EXT-STS:power_state'] | decode:ctrl.powerStates | title $}</dd>
-      <dt translate>Time Since Created</dt><dd>--</dd>
+    <dl>
+      <hz-property
+        prop-name="OS-EXT-AZ:availability_zone" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
+      <hz-property
+        prop-name="OS-EXT-STS:task_state" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
+      <hz-property
+        prop-name="OS-EXT-STS:power_state" resource-type-name="OS::Nova::Server" item="item"
+      ></hz-property>
     </dl>
   </div>
 </div>

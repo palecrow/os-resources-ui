@@ -70,94 +70,54 @@
         label: gettext('Created')
       })
       .setProperty('image_name', {
-        label: gettext('Image Name')
+        label: gettext('Image Name'),
+        filters: ['noValue']
       })
       .setProperty('key_name', {
-        label: gettext('Key Pair Name')
+        label: gettext('Key Pair Name'),
+        filters: ['noValue']
       })
       .setProperty('flavor_name', {
-        label: gettext('Flavor Name')
+        label: gettext('Flavor Name'),
+        filters: ['noValue']
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        values: {
+          'DELETED': gettext('Deleted'),
+          'ACTIVE': gettext('Active'),
+          'SHUTOFF': gettext('Shutoff'),
+          'SUSPENDED': gettext('Suspended'),
+          'PAUSED':	gettext('Paused'),
+          'ERROR': gettext('Error'),
+          'RESIZE': gettext('Resize/Migrate'),
+          'VERIFY_RESIZE': gettext('Confirm or Revert Resize/Migrate'),
+          'REVERT_RESIZE': gettext('Revert Resize/Migrate'),
+          'REBOOT': gettext('Reboot'),
+          'HARD_REBOOT': gettext('Hard Reboot'),
+          'PASSWORD': gettext('Password'),
+          'REBUILD': gettext('Rebuild'),
+          'MIGRATING': gettext('Migrating'),
+          'BUILD': gettext('Build'),
+          'RESCUE':  gettext('Rescue'),
+          'SOFT-delete':  gettext('Soft Deleted'),
+          'SHELVED':  gettext('Rescue'),
+          'SHELVED_OFFLOADED':  gettext('Shelved Offloaded'),
+          'BUILDING':  gettext('Building'),
+          'STOPPED':  gettext('Stopped'),
+          'RESCUED':  gettext('Rescued'),
+          'RESIZED':  gettext('Resized')
+        }
       })
       .setProperty('OS-EXT-AZ:availability_zone', {
         label: gettext('Availability Zone')
       })
       .setProperty('OS-EXT-STS:task_state', {
-        label: gettext('Task State')
-      })
-      .setProperty('OS-EXT-STS:power_state', {
-        label: gettext('Power State')
-      })
-      .tableColumns
-      .append({
-        id: 'name',
-        priority: 1,
-        sortDefault: true,
-        template: '<a ng-href="{$ \'project/ngdetails/OS::Nova::Server/\'' +
-          ' + item.id $}">{$ item.name $}</a>'
-      })
-      .append({
-        id: 'image_name',
-        filters: ['noValue'],
-        priority: 2
-      })
-      .append({
-        id: 'flavor_name',
-        filters: ['noValue'],
-        priority: 2
-      })
-      .append({
-        id: 'key_name',
-        filters: ['noValue'],
-        priority: 2
-      })
-      .append({
-        id: 'status',
-        filters: ['lowercase'],
-        values: {
-          'deleted': gettext('Deleted'),
-          'active': gettext('Active'),
-          'shutoff': gettext('Shutoff'),
-          'suspended': gettext('Suspended'),
-          'paused':	gettext('Paused'),
-          'error': gettext('Error'),
-          'resize': gettext('Resize/Migrate'),
-          'verify_resize': gettext('Confirm or Revert Resize/Migrate'),
-          'revert_resize': gettext('Revert Resize/Migrate'),
-          'reboot': gettext('Reboot'),
-          'hard_reboot': gettext('Hard Reboot'),
-          'password': gettext('Password'),
-          'rebuild': gettext('Rebuild'),
-          'migrating': gettext('Migrating'),
-          'build': gettext('Build'),
-          'rescue':  gettext('Rescue'),
-          'soft-delete':  gettext('Soft Deleted'),
-          'shelved':  gettext('Rescue'),
-          'shelved_offloaded':  gettext('Shelved Offloaded'),
-          'building':  gettext('Building'),
-          'stopped':  gettext('Stopped'),
-          'rescued':  gettext('Rescued'),
-          'resized':  gettext('Resized')
-        },
-        priority: 1
-      })
-      .append({
-        id: 'OS-EXT-AZ:availability_zone',
-        excludeSort: true,
-        priority: 2
-      })
-      .append({
-        id: 'OS-EXT-STS:task_state',
-        priority: 1,
-        excludeSort: true,
+        label: gettext('Task State'),
         filters: ['noValue']
       })
-      .append({
-        id: 'OS-EXT-STS:power_state',
-        priority: 1,
-        excludeSort: true,
+      .setProperty('OS-EXT-STS:power_state', {
+        label: gettext('Power State'),
         values: {
           '0': gettext('No State'),
           '1': gettext('Running'),
@@ -170,6 +130,45 @@
           '8': gettext('Failed'),
           '9': gettext('Building')
         }
+      })
+      .tableColumns
+      .append({
+        id: 'name',
+        priority: 1,
+        sortDefault: true,
+        template: '<a ng-href="{$ \'project/ngdetails/OS::Nova::Server/\'' +
+          ' + item.id $}">{$ item.name $}</a>'
+      })
+      .append({
+        id: 'image_name',
+        priority: 2
+      })
+      .append({
+        id: 'flavor_name',
+        priority: 2
+      })
+      .append({
+        id: 'key_name',
+        priority: 2
+      })
+      .append({
+        id: 'status',
+        priority: 1
+      })
+      .append({
+        id: 'OS-EXT-AZ:availability_zone',
+        excludeSort: true,
+        priority: 2
+      })
+      .append({
+        id: 'OS-EXT-STS:task_state',
+        priority: 1,
+        excludeSort: true
+      })
+      .append({
+        id: 'OS-EXT-STS:power_state',
+        priority: 1,
+        excludeSort: true
       })
       .append({
         id: 'created',
