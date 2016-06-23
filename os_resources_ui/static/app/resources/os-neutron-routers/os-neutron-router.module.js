@@ -19,70 +19,67 @@
   /* eslint-disable max-len */
   /**
    * @ngdoc overview
-   * @name horizon.app.resources.os-neutron-floatingip
+   * @name horizon.app.resources.os-neutron-router
    * @description
    *
-   * # horizon.app.resources.os-neutron-floatingip
+   * # horizon.app.resources.os-neutron-router
    *
    * This module provides OpenStack Neutron Ports functionality
    */
-  angular.module('horizon.app.resources.os-neutron-floatingip', [
-    'horizon.app.resources.os-neutron-floatingip.actions'
+  angular.module('horizon.app.resources.os-neutron-routers', [
+    'horizon.app.resources.os-neutron-routers.actions'
   ])
-  .constant('horizon.app.resources.os-neutron-floatingip.resourceType', 'OS::Neutron::FloatingIP')
+  .constant('horizon.app.resources.os-neutron-routers.resourceType', 'OS::Neutron::Router')
     .run(run)
     .config(config);
 
   run.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
-    'horizon.app.core.openstack-service-api.network',
-    'horizon.app.resources.os-neutron-floatingip.basePath',
-    'horizon.app.resources.os-neutron-floatingip.resourceType'
+    'horizon.app.core.openstack-service-api.neutron',
+    'horizon.app.resources.os-neutron-routers.basePath',
+    'horizon.app.resources.os-neutron-routers.resourceType'
   ];
 
-  function run(registry, network, basePath, resourceTypeName) {
+  function run(registry, neutron, basePath, resourceTypeName) {
     registry.getResourceType(resourceTypeName)
-      .setNames(gettext('Floating IP'), gettext('Floating IPs'))
+      .setNames(gettext('Router'), gettext('Routers'))
       .setSummaryTemplateUrl(basePath + '/drawer.html')
       .setProperty('id', {
         label: gettext('ID')
       })
-      .setProperty('ip_address', {
-        label: gettext('IP Address')
+      .setProperty('name', {
+        label: gettext('Name')
       })
-      .setProperty('mapped_fixed_ip_address', {
-        label: gettext('Mapped Fixed IP Address')
+      .setProperty('external_network', {
+        label: gettext('External Network')
       })
-      .setProperty('pool', {
-        label: gettext('Pool')
-      })
-      .setProperty('status', {
-        label: gettext('Status')
+      .setProperty('admin_state', {
+        label: gettext('Admin State')
       })
       .setListFunction(listFunction)
       .tableColumns
       .append({
-        id: 'ip_address',
+        id: 'name',
         priority: 1,
         sortDefault: true,
-        template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::FloatingIp/\' + item.id $}">' +
-          '{$ item.ip_address $}</a>'
-      })
-      .append({
-        id: 'mapped_fixed_ip_address',
-        priority: 1
-      })
-      .append({
-        id: 'pool',
-        priority: 1
+        template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::Router/\' + item.id $}">' +
+          '{$ item.name $}</a>'
       })
       .append({
         id: 'status',
+        priority: 1
+      })
+      .append({
+        id: 'external_network',
+        priority: 1
+      })
+      .append({
+        id: 'admin_state',
         priority: 2
       });
 
     function listFunction() {
-      return network.getFloatingIps();
+      return neutron.getRouters();
     }
   }
 
@@ -99,9 +96,10 @@
    * @returns {undefined} Returns nothing
    */
   function config($provide, $windowProvider) {
-    var path = $windowProvider.$get().STATIC_URL + 'app/resources/os-neutron-floatingip';
-    $provide.constant('horizon.app.resources.os-neutron-floatingip.basePath', path);
+    var path = $windowProvider.$get().STATIC_URL + 'app/resources/os-neutron-routers';
+    $provide.constant('horizon.app.resources.os-neutron-routers.basePath', path);
   }
+
 
 
 })();

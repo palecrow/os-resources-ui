@@ -35,7 +35,7 @@
       'horizon.app.resources.os-neutron-floatingip',
       'horizon.app.resources.os-neutron-nets',
       'horizon.app.resources.os-neutron-ports',
-      'horizon.app.resources.os-neutron-router',
+      'horizon.app.resources.os-neutron-routers',
       'horizon.app.resources.os-neutron-securitygroups',
       'horizon.app.resources.os-neutron-subnets',
       'horizon.app.resources.os-nova-keypair',
@@ -78,7 +78,5 @@
       .setNames(gettext('Load Balancer Pool'), gettext('Load Balancer Pools'));
     registry.getResourceType('OS::Neutron::PoolMember')
       .setNames(gettext('Load Balancer Pool Member'), gettext('Load Balancer Pool Members'));
-    registry.getResourceType('OS::Neutron::Router')
-      .setNames(gettext('Network Router'), gettext('Network Routers'));
   }
 })();
