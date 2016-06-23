@@ -1,14 +1,22 @@
 <div class="row">
   <dl class="col-md-6">
-    <dt translate>IP Address</dt>
-    <dd>{$ item.ip_address | noValue $}</dd>
-    <dt translate>Mapped Fixed IP Address</dt>
-    <dd>{$ item.mapped_fixed_ip_address $}</dd>
+    <hz-property
+      resource-type-name="OS::Neutron::FloatingIP"
+      prop-name="ip"
+      item="item"></hz-property>
+    <hz-property
+      resource-type-name="OS::Neutron::FloatingIP"
+      prop-name="fixed_ip_address"
+      item="item"></hz-property>
   </dl>
   <dl class="col-md-6">
-    <dt translate>Pool</dt>
-    <dd>{$ item.pool $}</dd>
-    <dt translate>Status</dt>
-    <dd>{$ item.status $}</dd>
+    <hz-property
+      resource-type-name="OS::Neutron::FloatingIP"
+      prop-name="pool"
+      item="item"></hz-property>
+    <hz-property
+      resource-type-name="OS::Neutron::FloatingIP"
+      prop-name="status"
+      item="item"></hz-property>
   </dl>
 </div>
