@@ -19,30 +19,30 @@
   /* eslint-disable max-len */
   /**
    * @ngdoc overview
-   * @name horizon.app.resources.os-neutron-ports
+   * @name horizon.app.resources.os-neutron-subnets
    * @description
    *
-   * # horizon.app.resources.os-neutron-ports
+   * # horizon.app.resources.os-neutron-subnets
    *
    * This module provides OpenStack Neutron Ports functionality
    */
-  angular.module('horizon.app.resources.os-neutron-ports', [
-    'horizon.app.resources.os-neutron-ports.actions'
+  angular.module('horizon.app.resources.os-neutron-subnets', [
+    'horizon.app.resources.os-neutron-subnets.actions'
   ])
-  .constant('horizon.app.resources.os-neutron-ports.resourceType', 'OS::Neutron::Port')
+  .constant('horizon.app.resources.os-neutron-subnets.resourceType', 'OS::Neutron::Subnet')
     .run(run)
     .config(config);
 
   run.$inject = [
     'horizon.framework.conf.resource-type-registry.service',
     'horizon.app.core.openstack-service-api.neutron',
-    'horizon.app.resources.os-neutron-ports.basePath',
-    'horizon.app.resources.os-neutron-ports.resourceType'
+    'horizon.app.resources.os-neutron-subnets.basePath',
+    'horizon.app.resources.os-neutron-subnets.resourceType'
   ];
 
   function run(registry, neutron, basePath, resourceTypeName) {
     registry.getResourceType(resourceTypeName)
-      .setNames(gettext('Port'), gettext('Ports'))
+      .setNames(gettext('Subnet'), gettext('Subnets'))
       .setSummaryTemplateUrl(basePath + '/drawer.html')
       .setProperty('id', {
         label: gettext('ID')
@@ -50,17 +50,14 @@
       .setProperty('name', {
         label: gettext('Name')
       })
-      .setProperty('fixed_ips', {
-        label: gettext('Fixed IPs')
+      .setProperty('network_address', {
+        label: gettext('Network Address')
       })
-      .setProperty('attached_device', {
-        label: gettext('Attached Device')
+      .setProperty('ip_version', {
+        label: gettext('IP Version')
       })
-      .setProperty('status', {
-        label: gettext('Status')
-      })
-      .setProperty('admin_state', {
-        label: gettext('Admin State')
+      .setProperty('gateway_ip', {
+        label: gettext('Gateway IP')
       })
       .setListFunction(listFunction)
       .tableColumns
@@ -68,28 +65,24 @@
         id: 'name',
         priority: 1,
         sortDefault: true,
-        template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::Port/\' + item.id $}">' +
-          '{$ item.name || item.id $}</a>'
+        template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::Subnet/\' + item.id $}">' +
+          '{$ item.name $}</a>'
       })
       .append({
-        id: 'fixed_ips',
+        id: 'network_address',
         priority: 1
       })
       .append({
-        id: 'attached_device',
+        id: 'ip_version',
         priority: 1
       })
       .append({
-        id: 'status',
-        priority: 2
-      })
-      .append({
-        id: 'admin_state',
+        id: 'gateway_ip',
         priority: 2
       });
 
     function listFunction() {
-      return neutron.getPorts();
+      return neutron.getSubnets();
     }
   }
 
@@ -106,8 +99,8 @@
    * @returns {undefined} Returns nothing
    */
   function config($provide, $windowProvider) {
-    var path = $windowProvider.$get().STATIC_URL + 'app/resources/os-neutron-ports';
-    $provide.constant('horizon.app.resources.os-neutron-ports.basePath', path);
+    var path = $windowProvider.$get().STATIC_URL + 'app/resources/os-neutron-subnets';
+    $provide.constant('horizon.app.resources.os-neutron-subnets.basePath', path);
   }
 
 

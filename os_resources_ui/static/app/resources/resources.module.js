@@ -30,12 +30,13 @@
   angular
     .module('horizon.app.resources', [
       'horizon.app.resources.os-cinder-volumes',
-      'horizon.app.resources.os-glance-image',
+      'horizon.app.resources.os-cinder-snapshots',
       'horizon.app.resources.os-horizon',
       'horizon.app.resources.os-neutron-floatingip',
       'horizon.app.resources.os-neutron-nets',
       'horizon.app.resources.os-neutron-ports',
       'horizon.app.resources.os-neutron-router',
+      'horizon.app.resources.os-neutron-securitygroups',
       'horizon.app.resources.os-neutron-subnets',
       'horizon.app.resources.os-nova-keypair',
       'horizon.app.resources.os-swift-container'
@@ -65,10 +66,6 @@
       .setNames(gettext('DNS Record'), gettext('DNS Records'));
     registry.getResourceType('OS::Cinder::Backup')
       .setNames(gettext('Volume Backup'), gettext('Volume Backups'));
-    registry.getResourceType('OS::Cinder::Snapshot')
-      .setNames(gettext('Volume Snapshot'), gettext('Volume Snapshots'));
-    registry.getResourceType('OS::Cinder::Volume')
-      .setNames(gettext('Volume'), gettext('Volumes'));
     registry.getResourceType('OS::Swift::Account')
       .setNames(gettext('Object Account'), gettext('Object Accounts'));
     registry.getResourceType('OS::Swift::Container')
@@ -77,17 +74,11 @@
       .setNames(gettext('Object'), gettext('Objects'));
     registry.getResourceType('OS::Neutron::HealthMonitor')
       .setNames(gettext('Network Health Monitor'), gettext('Network Health Monitors'));
-    registry.getResourceType('OS::Neutron::Net')
-      .setNames(gettext('Network'), gettext('Networks'));
     registry.getResourceType('OS::Neutron::Pool')
       .setNames(gettext('Load Balancer Pool'), gettext('Load Balancer Pools'));
     registry.getResourceType('OS::Neutron::PoolMember')
       .setNames(gettext('Load Balancer Pool Member'), gettext('Load Balancer Pool Members'));
-    registry.getResourceType('OS::Neutron::Port')
-      .setNames(gettext('Network Port'), gettext('Network Ports'));
     registry.getResourceType('OS::Neutron::Router')
       .setNames(gettext('Network Router'), gettext('Network Routers'));
-    registry.getResourceType('OS::Neutron::Subnet')
-      .setNames(gettext('Network Subnet'), gettext('Network Subnets'));
   }
 })();
