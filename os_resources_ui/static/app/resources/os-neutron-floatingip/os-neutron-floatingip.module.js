@@ -47,29 +47,35 @@
       .setProperty('id', {
         label: gettext('ID')
       })
-      .setProperty('ip_address', {
+      .setProperty('ip', {
         label: gettext('IP Address')
       })
-      .setProperty('mapped_fixed_ip_address', {
-        label: gettext('Mapped Fixed IP Address')
+      .setProperty('fixed_ip_address', {
+        label: gettext('Mapped Fixed IP Address'),
+        filters: ['noValue']
       })
       .setProperty('pool', {
         label: gettext('Pool')
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        values: {
+          'UP': gettext('Up'),
+          'DOWN': gettext('Down'),
+          'ERROR': gettext('Error'),
+        }
       })
       .setListFunction(listFunction)
       .tableColumns
       .append({
-        id: 'ip_address',
+        id: 'ip',
         priority: 1,
         sortDefault: true,
         template: '<a ng-href="{$ \'project/ngdetails/OS::Neutron::FloatingIp/\' + item.id $}">' +
-          '{$ item.ip_address $}</a>'
+          '{$ item.ip $}</a>'
       })
       .append({
-        id: 'mapped_fixed_ip_address',
+        id: 'fixed_ip_address',
         priority: 1
       })
       .append({
