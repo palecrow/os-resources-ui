@@ -72,11 +72,11 @@
           "ERROR": gettext('Error')
         }
       })
-      .setProperty('admin_state', {
+      .setProperty('admin_state_up', {
         label: gettext('Admin State'),
         values: {
-          "UP": gettext('Up'),
-          "DOWN": gettext('Down')
+          true: gettext('Up'),
+          false: gettext('Down')
         }
       })
       .setListFunction(listFunction)
@@ -101,7 +101,7 @@
         priority: 2
       })
       .append({
-        id: 'admin_state',
+        id: 'admin_state_up',
         priority: 2
       });
 
