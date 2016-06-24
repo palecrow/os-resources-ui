@@ -50,20 +50,33 @@
       .setProperty('name', {
         label: gettext('Name')
       })
-      .setProperty('subnets_associated', {
-        label: gettext('Subnets Associated')
+      .setProperty('subnets', {
+        label: gettext('Subnets Associated'),
+        filters: [subnetList, 'noValue']
       })
       .setProperty('shared', {
-        label: gettext('Shared')
+        label: gettext('Shared'),
+        filters: ['yesno']
       })
-      .setProperty('external', {
-        label: gettext('External')
+      .setProperty('router__external', {
+        label: gettext('External'),
+        filters: ['yesno']
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        values: {
+          "ACTIVE":  gettext('Active'),
+          "BUILD": gettext('Build'),
+          "DOWN": gettext('Down'),
+          "ERROR": gettext('Error')
+        }
       })
       .setProperty('admin_state', {
-        label: gettext('Admin State')
+        label: gettext('Admin State'),
+        values: {
+          "UP": gettext('Up'),
+          "DOWN": gettext('Down')
+        }
       })
       .setListFunction(listFunction)
       .tableColumns
@@ -75,7 +88,7 @@
           '{$ item.name $}</a>'
       })
       .append({
-        id: 'subnets_associated',
+        id: 'subnets',
         priority: 1
       })
       .append({
@@ -83,7 +96,7 @@
         priority: 1
       })
       .append({
-        id: 'external',
+        id: 'router__external',
         priority: 2
       })
       .append({
@@ -97,6 +110,15 @@
 
     function listFunction() {
       return neutron.getNetworks();
+    }
+
+    function subnetList(items) {
+      if (!items) {
+        return "";
+      }
+      return items.map(function getCidr(item) {
+        return item.cidr;
+      }).join(', ');
     }
   }
 
