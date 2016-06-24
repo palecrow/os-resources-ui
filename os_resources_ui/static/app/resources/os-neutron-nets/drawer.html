@@ -1,22 +1,29 @@
 <div class="row">
   <dl class="col-md-4">
-    <dt translate>Name</dt>
-    <dd>{$ item.name | noValue $}</dd>
-    <dt translate>ID</dt>
-    <dd>{$ item.id $}</dd>
+    <hz-property
+      prop-name="name" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="id" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Subnets Associated</dt>
-    <dd>{$ item.subnets_associated $}</dd>
-    <dt translate>Shared</dt>
-    <dd>{$ item.shared $}</dd>
+    <hz-property
+      prop-name="subnets" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="shared" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="router__external" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>External</dt>
-    <dd>{$ item.external | noValue $}</dd>
-    <dt translate>Status</dt>
-    <dd>{$ item.status $}</dd>
-    <dt translate>Admin State</dt>
-    <dd>{$ item.admin_state $}</dd>
+    <hz-property
+      prop-name="status" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="admin_state" resource-type-name="OS::Neutron::Net" item="item"
+    ></hz-property>
   </dl>
 </div>

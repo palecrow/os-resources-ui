@@ -50,7 +50,7 @@
       .setProperty('name', {
         label: gettext('Name')
       })
-      .setProperty('network_address', {
+      .setProperty('cidr', {
         label: gettext('Network Address')
       })
       .setProperty('ip_version', {
@@ -69,7 +69,7 @@
           '{$ item.name $}</a>'
       })
       .append({
-        id: 'network_address',
+        id: 'cidr',
         priority: 1
       })
       .append({

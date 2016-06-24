@@ -50,11 +50,25 @@
       .setProperty('name', {
         label: gettext('Name')
       })
-      .setProperty('external_network', {
-        label: gettext('External Network')
+      .setProperty('external_gateway_info', {
+        label: gettext('External Network'),
+        filters: [getNetworkId]
+      })
+      .setProperty('status', {
+        label: gettext('Status'),
+        values: {
+          "ACTIVE":  gettext('Active'),
+          "BUILD": gettext('Build'),
+          "DOWN": gettext('Down'),
+          "ERROR": gettext('Error')
+        }
       })
       .setProperty('admin_state', {
-        label: gettext('Admin State')
+        label: gettext('Admin State'),
+        values: {
+          "UP": gettext('Up'),
+          "DOWN": gettext('Down')
+        }
       })
       .setListFunction(listFunction)
       .tableColumns
@@ -70,7 +84,7 @@
         priority: 1
       })
       .append({
-        id: 'external_network',
+        id: 'external_gateway_info',
         priority: 1
       })
       .append({
@@ -80,6 +94,10 @@
 
     function listFunction() {
       return neutron.getRouters();
+    }
+
+    function getNetworkId(item) {
+      return item.network_id;
     }
   }
 

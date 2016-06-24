@@ -48,19 +48,36 @@
         label: gettext('ID')
       })
       .setProperty('name', {
-        label: gettext('Name')
+        label: gettext('Name'),
+        filters: ['noValue']
       })
       .setProperty('fixed_ips', {
-        label: gettext('Fixed IPs')
+        label: gettext('Fixed IPs'),
+        filters: [ipAddrs]
       })
-      .setProperty('attached_device', {
-        label: gettext('Attached Device')
+      .setProperty('device_owner', {
+        label: gettext('Attached Device'),
+        filters: ['noValue']
+      })
+      .setProperty('device_id', {
+        label: gettext('Attached Device ID'),
+        filters: ['noValue']
       })
       .setProperty('status', {
-        label: gettext('Status')
+        label: gettext('Status'),
+        values: {
+          "ACTIVE":  gettext('Active'),
+          "BUILD": gettext('Build'),
+          "DOWN": gettext('Down'),
+          "ERROR": gettext('Error')
+        }
       })
       .setProperty('admin_state', {
-        label: gettext('Admin State')
+        label: gettext('Admin State'),
+        values: {
+          "UP": gettext('Up'),
+          "DOWN": gettext('Down')
+        }
       })
       .setListFunction(listFunction)
       .tableColumns
@@ -76,7 +93,7 @@
         priority: 1
       })
       .append({
-        id: 'attached_device',
+        id: 'device_owner',
         priority: 1
       })
       .append({
@@ -90,6 +107,12 @@
 
     function listFunction() {
       return neutron.getPorts();
+    }
+
+    function ipAddrs(items) {
+      return items.map(function getIpAddress(item) {
+        return item.ip_address;
+      }).join(', ');
     }
   }
 

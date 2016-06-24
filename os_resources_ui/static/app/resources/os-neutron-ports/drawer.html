@@ -1,20 +1,29 @@
 <div class="row">
   <dl class="col-md-4">
-    <dt translate>Name</dt>
-    <dd>{$ item.name | noValue $}</dd>
-    <dt translate>ID</dt>
-    <dd>{$ item.id $}</dd>
+    <hz-property
+      prop-name="name" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="id" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Fixed IPs</dt>
-    <dd>{$ item.fixed_ips $}</dd>
-    <dt translate>Attached Device</dt>
-    <dd>{$ item.attached_device $}</dd>
+    <hz-property
+      prop-name="fixed_ips" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="device_owner" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="device_id" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Status</dt>
-    <dd>{$ item.status $}</dd>
-    <dt translate>Admin State</dt>
-    <dd>{$ item.admin_state $}</dd>
+    <hz-property
+      prop-name="status" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="admin_state" resource-type-name="OS::Neutron::Port" item="item"
+    ></hz-property>
   </dl>
 </div>

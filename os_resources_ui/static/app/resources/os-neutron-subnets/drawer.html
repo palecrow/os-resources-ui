@@ -1,18 +1,23 @@
 <div class="row">
   <dl class="col-md-4">
-    <dt translate>Name</dt>
-    <dd>{$ item.name | noValue $}</dd>
-    <dt translate>ID</dt>
-    <dd>{$ item.id $}</dd>
+    <hz-property
+      prop-name="name" resource-type-name="OS::Neutron::Subnet" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="id" resource-type-name="OS::Neutron::Subnet" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Network Address</dt>
-    <dd>{$ item.network_address $}</dd>
-    <dt translate>IP Version</dt>
-    <dd>{$ item.ip_version $}</dd>
+    <hz-property
+      prop-name="cidr" resource-type-name="OS::Neutron::Subnet" item="item"
+    ></hz-property>
+    <hz-property
+      prop-name="ip_version" resource-type-name="OS::Neutron::Subnet" item="item"
+    ></hz-property>
   </dl>
   <dl class="col-md-4">
-    <dt translate>Gateway IP</dt>
-    <dd>{$ item.gateway_ip $}</dd>
+    <hz-property
+      prop-name="gateway_ip" resource-type-name="OS::Neutron::Subnet" item="item"
+    ></hz-property>
   </dl>
 </div>
