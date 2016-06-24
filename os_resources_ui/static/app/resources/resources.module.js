@@ -38,6 +38,7 @@
       'horizon.app.resources.os-neutron-routers',
       'horizon.app.resources.os-neutron-securitygroups',
       'horizon.app.resources.os-neutron-subnets',
+      'horizon.app.resources.os-nova-hypervisors',
       'horizon.app.resources.os-nova-keypair',
       'horizon.app.resources.os-swift-container'
     ])
@@ -56,8 +57,6 @@
       .setNames(gettext('Metadata Definition'), gettext('Metadata Definitions'));
     registry.getResourceType('OS::Nova::Flavor')
       .setNames(gettext('Flavor'), gettext('Flavors'));
-    registry.getResourceType('OS::Nova::Hypervisor')
-      .setNames(gettext('Hypervisor'), gettext('Hypervisors'));
     registry.getResourceType('OS::Nova::Keypair')
       .setNames(gettext('Key Pair'), gettext('Key Pairs'));
     registry.getResourceType('OS::Designate::Zone')
