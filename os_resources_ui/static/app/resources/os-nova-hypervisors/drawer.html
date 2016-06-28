@@ -1,32 +1,8 @@
-<div class="row">
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="hypervisor_hostname" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="name" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="id" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="hypervisor_type" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="vcpus" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="local_gb" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="status" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="state" resource-type-name="OS::Nova::Hypervisor" item="item"
-    ></hz-property>
-  </dl>
-</div>
+<hz-property-list
+  resource-type-name="OS::Nova::Hypervisor"
+  item="item"
+  property-groups="[
+    ['name', 'id'],
+    ['hypervisor_type', 'vcpus', 'local_gb'],
+    ['status', 'state']]">
+</hz-property-list>

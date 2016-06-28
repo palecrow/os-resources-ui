@@ -1,26 +1,8 @@
-<div class="row">
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="name" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="id" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="shared" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="router__external" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="status" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="admin_state_up" resource-type-name="OS::Neutron::Net" item="item"
-    ></hz-property>
-  </dl>
-</div>
+<hz-property-list
+  resource-type-name="OS::Neutron::Net"
+  item="item"
+  property-groups="[
+   ['name', 'id'],
+   ['shared', 'router__external'],
+   ['status', 'admin_state_up']]">
+</hz-property-list>

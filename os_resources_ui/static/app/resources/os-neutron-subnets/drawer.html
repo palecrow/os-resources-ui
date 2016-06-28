@@ -1,23 +1,8 @@
-<div class="row">
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="name" resource-type-name="OS::Neutron::Subnet" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="id" resource-type-name="OS::Neutron::Subnet" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="cidr" resource-type-name="OS::Neutron::Subnet" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="ip_version" resource-type-name="OS::Neutron::Subnet" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="gateway_ip" resource-type-name="OS::Neutron::Subnet" item="item"
-    ></hz-property>
-  </dl>
-</div>
+<hz-property-list
+  resource-type-name="OS::Neutron::Subnet"
+  item="item"
+  property-groups="[
+    ['name', 'id'],
+    ['cidr', 'ip_version'],
+    ['gateway_ip']]">
+</hz-property-list>
