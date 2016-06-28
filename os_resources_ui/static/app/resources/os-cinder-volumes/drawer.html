@@ -1,25 +1,8 @@
-<div class="row">
-  <dl class="col-md-6">
-    <hz-property
-      prop-name="consistencygroup_id" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="source_volid" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="snapshot_id" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="imageRef" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-  </dl>
-
-  <dl class="col-md-6">
-    <hz-property
-      prop-name="transfer" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="created_at" resource-type-name="OS::Cinder::Volume" item="item"
-    ></hz-property>
-  </dl>
-</div>
+<hz-property-list
+  resource-type-name="OS::Cinder::Volume"
+  item="item"
+  property-groups="[
+    ['consistencygroup_id', 'source_volid'],
+    ['snapshot_id', 'imageRef'],
+    ['transfer', 'created_at']]">
+</hz-property-list>

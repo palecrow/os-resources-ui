@@ -1,29 +1,8 @@
-<div class="row">
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="id" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="name" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="description" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="status" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="size" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-  </dl>
-  <dl class="col-md-4">
-    <hz-property
-      prop-name="volume_id" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-    <hz-property
-      prop-name="volume_name" resource-type-name="OS::Cinder::Snapshot" item="item"
-    ></hz-property>
-  </dl>
-</div>
+<hz-property-list
+  resource-type-name="OS::Cinder::Snapshot"
+  item="item"
+  property-groups="[
+    ['id', 'name', 'description'],
+    ['status', 'size'],
+    ['volume_id', 'volume_name']]">
+</hz-property-list>
