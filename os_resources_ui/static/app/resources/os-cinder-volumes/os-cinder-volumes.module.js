@@ -27,7 +27,8 @@
    */
   angular
     .module('horizon.app.resources.os-cinder-volumes', [
-      'ngRoute'
+      'ngRoute',
+      'horizon.app.resources.os-cinder-volumes.actions'
     ])
     .constant('horizon.app.resources.os-cinder-volumes.resourceType', 'OS::Cinder::Volume')
     .run(run)

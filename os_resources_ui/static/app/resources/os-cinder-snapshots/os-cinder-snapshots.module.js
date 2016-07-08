@@ -27,7 +27,8 @@
    */
   angular
     .module('horizon.app.resources.os-cinder-snapshots', [
-      'ngRoute'
+      'ngRoute',
+      'horizon.app.resources.os-cinder-snapshots.actions'
     ])
     .constant('horizon.app.resources.os-cinder-snapshots.resourceType', 'OS::Cinder::Snapshot')
     .run(run)
