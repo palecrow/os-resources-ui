@@ -42,6 +42,16 @@
     ctrl.toldToConnect = false;
     ctrl.connect = connect;
 
+    var fix_height = function() {
+      $('iframe#console_embed').css({ height: $(document).height() + 'px' });
+    };
+    // there are two code paths to this particular block; handle them both
+    if (typeof($) != 'undefined') {
+      $(document).ready(fix_height);
+    } else {
+      addHorizonLoadEvent(fix_height);
+    }
+
     function connect() {
       ctrl.toldToConnect = true;
     }

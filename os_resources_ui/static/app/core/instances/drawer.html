@@ -2,31 +2,31 @@
   <div class="col-md-6">
     <dl>
       <dt translate>IP Addresses</dt><dd>{$ ctrl.getAllAddresses(item.addresses) $}</dd>
-      <hz-property
+      <hz-resource-property
         prop-name="status" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
-      <hz-property
+      ></hz-resource-property>
+      <hz-resource-property
         prop-name="key_name" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
-      <hz-property
+      ></hz-resource-property>
+      <hz-resource-property
         prop-name="image_name" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
-      <hz-property
+      ></hz-resource-property>
+      <hz-resource-property
         prop-name="flavor_name" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
+      ></hz-resource-property>
     </dl>
   </div>
   <div class="col-md-6">
     <dl>
-      <hz-property
+      <hz-resource-property
         prop-name="OS-EXT-AZ:availability_zone" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
-      <hz-property
+      ></hz-resource-property>
+      <hz-resource-property
         prop-name="OS-EXT-STS:task_state" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
-      <hz-property
+      ></hz-resource-property>
+      <hz-resource-property
         prop-name="OS-EXT-STS:power_state" resource-type-name="OS::Nova::Server" item="item"
-      ></hz-property>
+      ></hz-resource-property>
     </dl>
   </div>
 </div>
